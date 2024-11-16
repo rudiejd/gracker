@@ -1,5 +1,5 @@
 <.header>
-  Product <%= @product.id %>
+  Price History for <%= @product.name %>
   <:subtitle>This is a product record from your database.</:subtitle>
   <:actions>
     <.link href={~p"/products/#{@product}/edit"}>
@@ -11,6 +11,7 @@
 <.list>
   <:item title="Name"><%= @product.name %></:item>
   <:item title="Upc"><%= @product.upc %></:item>
+  <:item title="Price"><%= @product.price %></:item>
 </.list>
 
 <.back navigate={~p"/products"}>Back to products</.back>
