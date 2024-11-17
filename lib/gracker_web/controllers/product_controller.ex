@@ -3,6 +3,7 @@ defmodule GrackerWeb.ProductController do
 
   alias Gracker.Products
   alias Gracker.Products.Product
+  alias Gracker.Products.ProductPrice
 
   def index(conn, _params) do
     products = Products.list_products()
@@ -28,13 +29,14 @@ defmodule GrackerWeb.ProductController do
 
   def show(conn, %{"id" => id}) do
     product = Products.get_product!(id)
-    render(conn, :show, product: product)
+    prices = Products.get_product_prices(id)
+    render(conn, :show, product: product, prices: prices)
   end
 
   def edit(conn, %{"id" => id}) do
     product = Products.get_product!(id)
     changeset = Products.change_product(product)
-    render(conn, :edit, product: product, changeset: changeset)
+    render(conn, :edit, product: product,  changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "product" => product_params}) do

@@ -1,3 +1,3 @@
-defmodule Gracker.Products.ProductDto do
-  defstruct [:name, :upc, :price, :id]
+defmodule Gracker.Products.ProductPrice do
+  defstruct [:price, :date, :store, :id]
 end

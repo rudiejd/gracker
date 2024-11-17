@@ -1,7 +1,6 @@
 defmodule Gracker.MixProject do
   use Mix.Project
-
-  def project do
+def project do
     [
       app: :gracker,
       version: "0.1.0",
@@ -64,7 +63,9 @@ defmodule Gracker.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      # non-phoenix deps
+      {:zbar, "~> 0.2"}
     ]
   end
 

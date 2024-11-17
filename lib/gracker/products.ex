@@ -6,7 +6,7 @@ defmodule Gracker.Products do
   import Ecto.Query, warn: false
   alias Gracker.Repo
   alias Gracker.Products.Product
-  alias Gracker.Products.ProductDto
+  alias Gracker.Products.ProductPrice
 
   @doc """
   Returns the list of products.
@@ -36,10 +36,13 @@ defmodule Gracker.Products do
 
   """
   def get_product!(id) do 
-    query = from p in "products", where: p.id == ^String.to_integer(id), select: %ProductDto{name: p.name, upc: p.upc, price: 5.00, id: p.id} 
-    Repo.all(query) |> hd
+    Repo.get(Product, id)
   end
 
+  def get_product_prices(product_id) do 
+    query = from pp in "product_prices", where: pp.product_id == ^String.to_integer(product_id), select: %ProductPrice{id: pp.id, price: pp.price, date: pp.date, store: pp.store} 
+    Repo.all(query)
+  end
 
   @doc """
   Creates a product.

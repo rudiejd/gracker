@@ -11,7 +11,13 @@
 <.list>
   <:item title="Name"><%= @product.name %></:item>
   <:item title="Upc"><%= @product.upc %></:item>
-  <:item title="Price"><%= @product.price %></:item>
 </.list>
+
+
+  <.table id="prices" rows={@prices}>
+    <:col :let={price} label="Store"><%= price.store %></:col>
+    <:col :let={price} label="Date"><%= price.date %></:col>
+    <:col :let={price} label="Price"><%= price.price %></:col>
+  </.table>
 
 <.back navigate={~p"/products"}>Back to products</.back>
