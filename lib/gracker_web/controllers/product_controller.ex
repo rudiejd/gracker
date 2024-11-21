@@ -1,6 +1,7 @@
 defmodule GrackerWeb.ProductController do
   use GrackerWeb, :controller
 
+  alias Ecto.Repo
   alias Gracker.Products
   alias Gracker.Products.Product
   alias Gracker.Products.ProductPrice
@@ -26,6 +27,14 @@ defmodule GrackerWeb.ProductController do
         render(conn, :new, changeset: changeset)
     end
   end
+
+  def add_price(conn, %{"product_price" => product_price}) do
+    with {:ok, _} <- Products.create_product_price(product_price) do
+      conn 
+      |> put_flash(:info, "Price added successfully.")
+    end
+  end
+
 
   def show(conn, %{"id" => id}) do
     product = Products.get_product!(id)

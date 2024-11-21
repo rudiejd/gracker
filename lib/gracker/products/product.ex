@@ -1,4 +1,5 @@
 defmodule Gracker.Products.Product do
+  alias Gracker.Products.ProductPrice
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +7,7 @@ defmodule Gracker.Products.Product do
     field :name, :string
     field :upc, :string
 
+    has_many(:prices, ProductPrice)
     timestamps(type: :utc_datetime)
   end
 
