@@ -1,6 +1,6 @@
 <.header>
   Price History for <%= @product.name %>
-  <:subtitle>This is a product record from your database.</:subtitle>
+  <:subtitle>Prices of this product over time at different stores around Boston</:subtitle>
   <:actions>
     <.link href={~p"/products/#{@product}/edit"}>
       <.button>Edit product</.button>
@@ -20,6 +20,7 @@
   <.table id="prices" rows={@prices}>
     <:col :let={price} label="Date"><%= price.date %></:col>
     <:col :let={price} label="Price"><%= price.price %></:col>
+    <:col :let={price} label="Store"><%= "#{price.store_name} (#{price.store_address})" %></:col>
   </.table>
 <% end %>
 

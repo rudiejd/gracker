@@ -8,6 +8,10 @@ defmodule GrackerWeb.ProductHTML do
   """
   attr :changeset, Ecto.Changeset, required: true
   attr :action, :string, required: true
-
   def product_form(assigns)
+
+  @doc """
+  Renders a QR code form for getting product name / UPC
+  """
+  def product_qr_form(assigns)
 end

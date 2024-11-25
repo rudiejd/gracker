@@ -42,6 +42,29 @@ defmodule Gracker.Products do
     Repo.get(Product, id)
   end
 
+
+  @doc """
+  Get a single product using the UPC code
+  """
+  def get_product_by_upc(upc) do
+    query =
+      from p in "products",
+      where: p.upc == ^upc,
+      select: %Product{id: p.id, name: p.name, upc: p.upc}
+    Repo.one(query)
+  end
+
+
+  def get_product_prices_with_stores(product_id) do 
+    query = 
+      from pp in "product_prices", 
+      where: pp.product_id == ^String.to_integer(product_id), 
+      join: s in Store,
+      on: s.id == pp.store_id,
+      select: %{id: pp.id, price: pp.price, date: pp.date, store_name: s.name, store_address: s.address} 
+    Repo.all(query)
+  end
+
   def get_product_prices(product_id) do 
     query = from pp in "product_prices", where: pp.product_id == ^String.to_integer(product_id), select: %ProductPrice{id: pp.id, price: pp.price, date: pp.date, store_id: pp.store_id} 
     Repo.all(query)

@@ -25,6 +25,7 @@ defmodule GrackerWeb.Router do
     resources "/", ProductController
     get "/:id/price", ProductController, :price
     post "/:id/price", ProductController, :add_price
+    post "/qr", ProductController, :create_from_qr
   end
 
   scope "/stores", GrackerWeb do
