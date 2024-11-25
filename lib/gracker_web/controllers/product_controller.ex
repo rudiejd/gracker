@@ -28,10 +28,11 @@ defmodule GrackerWeb.ProductController do
   
   def price(conn, %{"id" => id}) do
     product = Products.get_product!(id)
+    stores = Products.list_stores()
     changeset = 
     %ProductPrice{}
     |> ProductPrice.changeset()
-    render(conn, :price, product: product, changeset: changeset)
+    render(conn, :price, product: product, stores: stores, changeset: changeset)
   end
 
   def add_price(conn, %{"product_price" => product_price_params, "id" => product_id}) do

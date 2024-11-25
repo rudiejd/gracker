@@ -2,9 +2,9 @@
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
-  <.input field={f[:price]} type="text" label="Price" />
+  <.input field={f[:price]} type="number" label="Price" />
   <.input field={f[:date]} type="datetime-local" label="Date" />
-  <.input field={f[:store_id]} type="text" label="Store" />
+  <.input field={f[:store_id]} type="select" label="Store" options={Enum.map(@stores, &({"#{&1.name} (#{&1.address})", &1.id}))}/>
   <:actions>
     <.button>Add Price</.button>
   </:actions>
