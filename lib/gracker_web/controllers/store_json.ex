@@ -1,5 +1,5 @@
 defmodule GrackerWeb.StoreJSON do
-  alias Gracker.Product.Store
+  alias Gracker.Products.Store
 
   @doc """
   Renders a list of stores.

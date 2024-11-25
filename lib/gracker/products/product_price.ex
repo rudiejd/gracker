@@ -4,7 +4,6 @@ defmodule Gracker.Products.ProductPrice do
 
   alias Gracker.Products.Product
 
-  @required_fields ~w(price date store_id product_id)
 
   schema "product_prices" do
     field :price, :decimal
@@ -16,9 +15,9 @@ defmodule Gracker.Products.ProductPrice do
   end
 
   @doc false
-  def changeset(product, attrs) do
-    product
-    |> cast(attrs, @required_fields)
-    |> validate_required(@required_fields)
+  def changeset(price, attrs \\ %{}) do
+    price
+    |> cast(attrs, [:price, :date, :store_id, :product_id])
+    |> validate_required([:price, :date, :store_id, :product_id])
   end
 end

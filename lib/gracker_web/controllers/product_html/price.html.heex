@@ -3,6 +3,6 @@
   <:subtitle>Add a price for a product that we are tracking</:subtitle>
 </.header>
 
-<.price_form changeset={@changeset} action={~p"/products/#{@product.id}"} />
+<.price_form changeset={@changeset} action={~p"/products/#{@product.id}/price"} />
 
 <.back navigate={~p"/products"}>Back to products</.back>

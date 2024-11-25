@@ -5,6 +5,9 @@
     <.link href={~p"/products/#{@product}/edit"}>
       <.button>Edit product</.button>
     </.link>
+    <.link href={~p"/products/#{@product}/price"}>
+      <.button>Add price</.button>
+    </.link>
   </:actions>
 </.header>
 
@@ -13,11 +16,11 @@
   <:item title="Upc"><%= @product.upc %></:item>
 </.list>
 
-
+<%= if length(@prices) > 0 do %>
   <.table id="prices" rows={@prices}>
-    <:col :let={price} label="Store"><%= price.store %></:col>
     <:col :let={price} label="Date"><%= price.date %></:col>
     <:col :let={price} label="Price"><%= price.price %></:col>
   </.table>
+<% end %>
 
 <.back navigate={~p"/products"}>Back to products</.back>

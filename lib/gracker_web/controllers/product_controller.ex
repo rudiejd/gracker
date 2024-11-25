@@ -1,10 +1,8 @@
 defmodule GrackerWeb.ProductController do
-  use GrackerWeb, :controller
-
-  alias Ecto.Repo
-  alias Gracker.Products
   alias Gracker.Products.Product
+  alias Gracker.Products
   alias Gracker.Products.ProductPrice
+  use GrackerWeb, :controller
 
   def index(conn, _params) do
     products = Products.list_products()
@@ -27,11 +25,21 @@ defmodule GrackerWeb.ProductController do
         render(conn, :new, changeset: changeset)
     end
   end
+  
+  def price(conn, %{"id" => id}) do
+    product = Products.get_product!(id)
+    changeset = 
+    %ProductPrice{}
+    |> ProductPrice.changeset()
+    render(conn, :price, product: product, changeset: changeset)
+  end
 
-  def add_price(conn, %{"product_price" => product_price}) do
-    with {:ok, _} <- Products.create_product_price(product_price) do
+  def add_price(conn, %{"product_price" => product_price_params, "id" => product_id}) do
+    params = product_price_params |> Map.put("product_id", product_id) 
+    with {:ok, _} <- Products.create_product_price(params) do
       conn 
-      |> put_flash(:info, "Price added successfully.")
+      |> put_flash(:info, "price added successfully.")
+      |> redirect(to: ~p"/products/#{product_id}")
     end
   end
 

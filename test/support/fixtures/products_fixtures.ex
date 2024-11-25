@@ -18,4 +18,18 @@ defmodule Gracker.ProductsFixtures do
 
     product
   end
+
+  @doc """
+  Generate a store.
+  """
+  def store_fixture(attrs \\ %{}) do
+    {:ok, store} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> Gracker.Products.create_store()
+
+    store
+  end
 end

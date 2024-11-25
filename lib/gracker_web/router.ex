@@ -18,8 +18,20 @@ defmodule GrackerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :hello
-    resources "/products", ProductController
   end
+
+  scope "/products", GrackerWeb do
+    pipe_through :browser
+    resources "/", ProductController
+    get "/:id/price", ProductController, :price
+    post "/:id/price", ProductController, :add_price
+  end
+
+  scope "/stores", GrackerWeb do
+    pipe_through :browser
+    resources "/", StoreController
+  end
+  
 
 
   # Other scopes may use custom stacks.

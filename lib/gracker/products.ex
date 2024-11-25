@@ -7,8 +7,8 @@ defmodule Gracker.Products do
 
 
   alias Gracker.Products.Product
+  alias Gracker.Products.Store
   alias Gracker.Products.ProductPrice
-  alias Gracker.Product.Store
   alias Gracker.Repo  
 
   @doc """
@@ -43,7 +43,7 @@ defmodule Gracker.Products do
   end
 
   def get_product_prices(product_id) do 
-    query = from pp in "product_prices", where: pp.product_id == ^String.to_integer(product_id), select: %ProductPrice{id: pp.id, price: pp.price, date: pp.date, store: pp.store} 
+    query = from pp in "product_prices", where: pp.product_id == ^String.to_integer(product_id), select: %ProductPrice{id: pp.id, price: pp.price, date: pp.date, store_id: pp.store_id} 
     Repo.all(query)
   end
 
@@ -120,7 +120,6 @@ defmodule Gracker.Products do
 
   @doc """
   Returns the list of stores.
-
   ## Examples
 
       iex> list_stores()

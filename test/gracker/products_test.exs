@@ -58,4 +58,56 @@ defmodule Gracker.ProductsTest do
       assert %Ecto.Changeset{} = Products.change_product(product)
     end
   end
+
+  describe "stores" do
+    alias Gracker.Products.Store
+
+    import Gracker.ProductsFixtures
+
+    @invalid_attrs %{}
+
+    test "list_stores/0 returns all stores" do
+      store = store_fixture()
+      assert Products.list_stores() == [store]
+    end
+
+    test "get_store!/1 returns the store with given id" do
+      store = store_fixture()
+      assert Products.get_store!(store.id) == store
+    end
+
+    test "create_store/1 with valid data creates a store" do
+      valid_attrs = %{}
+
+      assert {:ok, %Store{} = store} = Products.create_store(valid_attrs)
+    end
+
+    test "create_store/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Products.create_store(@invalid_attrs)
+    end
+
+    test "update_store/2 with valid data updates the store" do
+      store = store_fixture()
+      update_attrs = %{}
+
+      assert {:ok, %Store{} = store} = Products.update_store(store, update_attrs)
+    end
+
+    test "update_store/2 with invalid data returns error changeset" do
+      store = store_fixture()
+      assert {:error, %Ecto.Changeset{}} = Products.update_store(store, @invalid_attrs)
+      assert store == Products.get_store!(store.id)
+    end
+
+    test "delete_store/1 deletes the store" do
+      store = store_fixture()
+      assert {:ok, %Store{}} = Products.delete_store(store)
+      assert_raise Ecto.NoResultsError, fn -> Products.get_store!(store.id) end
+    end
+
+    test "change_store/1 returns a store changeset" do
+      store = store_fixture()
+      assert %Ecto.Changeset{} = Products.change_store(store)
+    end
+  end
 end

@@ -5,8 +5,8 @@ defmodule Gracker.Repo.Migrations.AddProductPricesTable do
     create table(:product_prices) do
       add :price, :decimal
       add :date, :utc_datetime
-      add :store, :string
-      add :product_id, :id
+      add :store_id, :id, null: false
+      add :product_id, :id, null: false
       timestamps(type: :utc_datetime)
     end
   end
