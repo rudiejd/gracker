@@ -3,7 +3,11 @@
     Oops, something went wrong! Please check the errors below.
   </.error>
   <.input field={f[:photo]} type="file" id="barcode" class="mt-2 block w-full" />
+  <.input field={f[:price]} type="number" label="Price" />
+  <.input field={f[:date]} type="datetime-local" label="Date" />
+  <.input field={f[:store_id]} type="select" label="Store" options={Enum.map(@stores, &({"#{&1.name} (#{&1.address})", &1.id}))}/>
+
   <:actions>
-    <.button>Save Product</.button>
+    <.button>Add Price</.button>
   </:actions>
 </.simple_form>

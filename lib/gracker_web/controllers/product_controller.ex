@@ -1,4 +1,5 @@
 defmodule GrackerWeb.ProductController do
+  alias Gracker.Foodfacts
   alias Gracker.Products.Product
   alias Gracker.Products
   alias Gracker.Products.ProductPrice
@@ -9,9 +10,11 @@ defmodule GrackerWeb.ProductController do
     render(conn, :index, products: products)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset = Products.change_product(%Product{})
-    render(conn, :new, changeset: changeset)
+    stores = Products.list_stores()
+
+    render(conn, :new, changeset: changeset, stores: stores, prepopulated: params[:prepopulated] || %{})
   end
 
   def create(conn, %{"product" => product_params}) do
@@ -36,23 +39,19 @@ defmodule GrackerWeb.ProductController do
     end
   end
 
-  def create_from_qr(conn, %{"product" => product_params}) do
-    msg = with %Plug.Upload{} = photo <- Map.get(product_params, "photo"),
+  def create_from_bar(conn, %{"product" => product_params}) do
+    with %Plug.Upload{} = photo <- Map.get(product_params, "photo"),
          barcode_jpeg <- File.read!(photo.path),
          {:ok, [%Zbar.Symbol{} = top_symbol | _]} <- Zbar.scan(barcode_jpeg) do
       upc = top_symbol.data
       existing_product = Products.get_product_by_upc(upc)
-      if existing_product do
-        "Existing product found #{existing_product.name}"
-      else
-        "No product found for UPC #{upc}"
-      end
+      name = if existing_product, do: existing_product.name, else: Foodfacts.get_foodfacts(upc).name
+      conn
+      |> put_flash(:info, "Identified UPC #{upc} from that barcode as #{name}!")
+      |> new(%{prepopulated: %{name: name, upc: upc}})
     else
       error -> conn |> put_flash(:error, "Failed to parse barcode from image! Error: #{inspect(error)}")
     end
-    conn
-    |> put_flash(:info, msg)
-    |> redirect(to: ~p"/products")
   end
 
   def price(conn, %{"id" => id}) do

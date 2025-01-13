@@ -65,7 +65,11 @@ def project do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       # non-phoenix deps
-      {:zbar, "~> 0.2"}
+
+      # barcode scanning (wrapper of c library)
+      {:zbar, "~> 0.2"},
+      # HTTP requests
+      {:req, "~> 0.5.0"}
     ]
   end
 

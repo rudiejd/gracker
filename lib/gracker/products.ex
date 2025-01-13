@@ -11,6 +11,12 @@ defmodule Gracker.Products do
   alias Gracker.Products.ProductPrice
   alias Gracker.Repo  
 
+  @open_food_api_url "https://world.openfoodfacts.org/api"
+
+  defp get_foodfacts(upc) do
+    Req.get("#{@open_food_api_url}/v0/products/#{upc}")
+  end
+
   @doc """
   Returns the list of products.
 
@@ -93,6 +99,23 @@ defmodule Gracker.Products do
     |> Product.changeset(attrs)
     |> Repo.insert()
   end
+
+  @doc """
+  Creates a product.
+
+  ## Examples
+
+      iex> create_product(%{field: value})
+      {:ok, %Product{}}
+
+      iex> create_product(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_product_from_barcode(upc) do
+    Req.get!()
+  end
+
 
   @doc """
   Updates a product.
