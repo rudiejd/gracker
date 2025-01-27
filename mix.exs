@@ -1,6 +1,7 @@
 defmodule Gracker.MixProject do
   use Mix.Project
-def project do
+
+  def project do
     [
       app: :gracker,
       version: "0.1.0",
@@ -8,7 +9,7 @@ def project do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
+      deps: deps()
     ]
   end
 
@@ -22,7 +23,7 @@ def project do
     ]
   end
 
-  def gracker do 
+  def gracker do
     [
       dev_routes: true
     ]
@@ -45,7 +46,6 @@ def project do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
       {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
-      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
@@ -69,7 +69,9 @@ def project do
       # barcode scanning (wrapper of c library)
       {:zbar, "~> 0.2"},
       # HTTP requests
-      {:req, "~> 0.5.0"}
+      {:req, "~> 0.5.0"},
+      {:crawly, "~> 0.17.2"},
+      {:floki, "~> 0.36.0"}
     ]
   end
 
